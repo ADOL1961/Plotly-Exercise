@@ -1,0 +1,34 @@
+---
+title: "Plotly Presentation"
+author: "Adolfo Corrales"
+date: "10^th^ June 2018"
+output: ioslides_presentation
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Density Function for a Bivariate Normal ($\rho=0.5$)
+
+```{r lib, echo=FALSE, error=FALSE, message=FALSE, warning=FALSE}
+library(plotly)
+library(ggplot2)
+library(MASS)
+library(mvtnorm)
+
+n = 5000
+mu = c(0,0)
+sigma = matrix(c(1,0.5,0.5,1),2)
+datos = mvrnorm(n,mu,sigma)
+density = dmvnorm(datos, mu,sigma, log=FALSE)
+
+data <- data.frame(cbind(datos, density))
+
+plot_ly(data, x=~V1, y=~V2, z=~density,
+        type="scatter3d", marker=list(symbol="circle", size=2), color = ~density)
+
+```
+
+## Thank You 
+
